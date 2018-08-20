@@ -1,6 +1,6 @@
 exp='maml-omniglot-5way-1shot-TEST'
-dataset='omniglot'
-num_cls=5
+dataset='fr'
+num_cls=2
 num_inst=1
 batch=1
 m_batch=32
