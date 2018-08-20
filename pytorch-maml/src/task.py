@@ -3,9 +3,9 @@ import random
 import numpy as np
 import torch
 
-class OmniglotTask(object):
+class FRTask(object):
     '''
-    Sample a few-shot learning task from the Omniglot dataset
+    Sample a few-shot learning task from the FR dataset
     Sample N-way k-shot train and val sets according to
      - split (dataset/meta level train or test)
      - N-way classification (sample this many chars)
@@ -14,7 +14,7 @@ class OmniglotTask(object):
     '''
 
     def __init__(self, root, num_cls, num_inst, split='train'):
-        self.dataset = 'omniglot'
+        self.dataset = 'fr'
         self.root = '{}/images_background'.format(root) if split == 'train' else '{}/images_evaluation'.format(root)
         self.num_cl = num_cls
         self.num_inst = num_inst

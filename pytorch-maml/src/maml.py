@@ -13,10 +13,10 @@ from torch.nn import Parameter
 from torch.optim import SGD, Adam
 from torch.nn.modules.loss import CrossEntropyLoss
 
-from task import OmniglotTask
-from dataset import Omniglot
+from task import FRTask
+from dataset import FR
 from inner_loop import InnerLoop
-from omniglot_net import OmniglotNet
+from fr_net import FRNet
 from score import *
 from data_loading import *
 
@@ -48,15 +48,15 @@ class MetaLearner(object):
         # Make the nets
         #TODO: don't actually need two nets
         num_input_channels = 3
-        self.net = OmniglotNet(num_classes, self.loss_fn, num_input_channels)
+        self.net = FRNet(num_classes, self.loss_fn, num_input_channels)
         self.net.cuda()
         self.fast_net = InnerLoop(num_classes, self.loss_fn, self.num_inner_updates, self.inner_step_size, self.inner_batch_size, self.meta_batch_size, num_input_channels)
         self.fast_net.cuda()
         self.opt = Adam(self.net.parameters(), lr=meta_step_size)
             
     def get_task(self, root, n_cl, n_inst, split='train'):
-        if 'omniglot' in root:
-            return OmniglotTask(root, n_cl, n_inst, split)
+        if 'fr' in root:
+            return FRTask(root, n_cl, n_inst, split)
         else:
             print('Unknown dataset')
             raise(Exception)
@@ -90,7 +90,7 @@ class MetaLearner(object):
 
     def test(self):
         num_in_channels = 3
-        test_net = OmniglotNet(self.num_classes, self.loss_fn, num_in_channels)
+        test_net = FRNet(self.num_classes, self.loss_fn, num_in_channels)
         mtr_loss, mtr_acc, mval_loss, mval_acc = 0.0, 0.0, 0.0, 0.0
         # Select ten tasks randomly from the test set to evaluate on
         for _ in range(10):

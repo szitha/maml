@@ -14,8 +14,8 @@ import torchvision.transforms as transforms
 from torch.nn.modules.loss import CrossEntropyLoss
 
 from task import Task
-from omniglot_net import Classifier
-from omniglot_dataset import Omniglot
+from fr_net import Classifier
+from fr_dataset import FR
 from custom_modules import *
 
 # Set hyper-parameters
@@ -25,7 +25,7 @@ num_shot = 1
 inner_batch_size = 5
 
 def get_data_loader(task, split='train'):
-    dset = Omniglot(task, transform=transforms.ToTensor(), split=split) 
+    dset = FR(task, transform=transforms.ToTensor(), split=split) 
     print('img ids', dset.img_ids)
     print('labels', dset.labels)
     loader = DataLoader(dset, batch_size=inner_batch_size, shuffle=True, num_workers=1, pin_memory=True)
@@ -87,6 +87,6 @@ for i in range(5):
     opt = SGD(list(net.weights.values()), lr=0.001, momentum=0.9, weight_decay=0.0005)
     #opt = Adam(net.weights.values(), lr=1)
     loss_fn = CrossEntropyLoss()
-    task = Task('../data/omniglot', num_classes, num_shot)
+    task = Task('../data/fr', num_classes, num_shot)
     train_step(task)
 

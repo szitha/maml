@@ -8,13 +8,13 @@ import torch.nn as nn
 
 from layers import *
 
-class OmniglotNet(nn.Module):
+class FRNet(nn.Module):
     '''
-    The base model for few-shot learning on Omniglot
+    The base model for few-shot learning on FR
     '''
 
     def __init__(self, num_classes, loss_fn, num_in_channels=3):
-        super(OmniglotNet, self).__init__()
+        super(FRNet, self).__init__()
         # Define the network
         self.features = nn.Sequential(OrderedDict([
                 ('conv1', nn.Conv2d(num_in_channels, 64, 3)),

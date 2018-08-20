@@ -26,10 +26,10 @@ class FewShotDataset(data.Dataset):
     def __getitem__(self, idx):
         raise NotImplementedError("This is an abstract class. Subclass this class for your particular dataset.")
 
-class Omniglot(FewShotDataset):
+class FR(FewShotDataset):
    
     def __init__(self, *args, **kwargs):
-        super(Omniglot, self).__init__(*args, **kwargs)
+        super(FR, self).__init__(*args, **kwargs)
     
     def load_image(self, idx):
         ''' Load image '''
