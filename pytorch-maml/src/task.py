@@ -19,12 +19,12 @@ class FRTask(object):
         self.num_cl = num_cls
         self.num_inst = num_inst
         # Sample num_cls characters and num_inst instances of each
-        languages = os.listdir(self.root)
-        chars = []
-        for l in languages:
-            chars += [os.path.join(l, x) for x in os.listdir(os.path.join(self.root, l))]
-        random.shuffle(chars)
-        classes = chars[:num_cls]
+        galaxies = os.listdir(self.root)
+        g_type = []
+        for g in galaxies:
+            g_type += [os.path.join(l, x) for x in os.listdir(os.path.join(self.root, l))]
+        random.shuffle(g_type)
+        classes = g_type[:num_cls]
         labels = np.array(list(range(len(classes))))
         labels = dict(list(zip(classes, labels))) 
         instances = dict()
