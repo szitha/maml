@@ -22,7 +22,7 @@ class FRTask(object):
         galaxies = os.listdir(self.root)
         g_type = []
         for g in galaxies:
-            g_type += [os.path.join(l, x) for x in os.listdir(os.path.join(self.root, l))]
+            g_type += [os.path.join(g, x) for x in os.listdir(os.path.join(self.root, g))]
         random.shuffle(g_type)
         classes = g_type[:num_cls]
         labels = np.array(list(range(len(classes))))
