@@ -18,19 +18,38 @@ class FRTask(object):
         self.root = '{}/images_background'.format(root) if split == 'train' else '{}/images_evaluation'.format(root)
         self.num_cl = num_cls
         self.num_inst = num_inst
-        # Sample num_cls characters and num_inst instances of each
+
+        # Sample num_cls galaxies and num_inst instances of each
         galaxies = os.listdir(self.root)
+         
+        print (galaxies)
         g_type = []
         for g in galaxies:
             g_type += [os.path.join(g, x) for x in os.listdir(os.path.join(self.root, g))]
+        #print(g_type)
+
         random.shuffle(g_type)
+
+        #random sampling number of galaxies
+        #classes = random.sample(g_type, num_cls)
+
+        
         classes = g_type[:num_cls]
+
+        print(classes)
+        #randomly pick classes 
+        #hardcoding number of classes to 3
+        #random_classes = random.sample(classes, 3) 
+
+
         labels = np.array(list(range(len(classes))))
         labels = dict(list(zip(classes, labels))) 
         instances = dict()
+
         # Now sample from the chosen classes to create class-balanced train and val sets
         self.train_ids = []
         self.val_ids = []
+
         for c in classes:
             # First get all isntances of that class
             temp = [os.path.join(c, x) for x in os.listdir(os.path.join(self.root, c))]
