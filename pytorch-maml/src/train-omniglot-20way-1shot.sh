@@ -1,10 +1,10 @@
 exp='maml-omniglot-20way-1shot'
 dataset='fr'
-num_cls=2
+num_cls=20
 num_inst=1
 batch=1
 m_batch=16
-num_updates=25000
+num_updates=2000
 num_inner_updates=5
 lr='1e-1'
 meta_lr='1e-3'
