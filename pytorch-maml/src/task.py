@@ -26,15 +26,34 @@ class FRTask(object):
         g_type = []
         for g in galaxies:
             g_type += [os.path.join(g, x) for x in os.listdir(os.path.join(self.root, g))]
-        #print(g_type)
 
-        random.shuffle(g_type)
+        print(g_type)
+
+        #random.shuffle(g_type)
 
         #random sampling number of galaxies
         #classes = random.sample(g_type, num_cls)
 
+
+
+       def Hammersley(num_cls,g_type):
+           idxs = [];
+           distribution = chaospy.J(chaospy.Uniform(1, len(g_type)))
+           pul_sample = distribution.sample(num_cls, rule = "M")
+
+           print(pul_sample)
+           for i in pul_sample:
+               idxs.append(int((i)))
         
-        classes = g_type[:num_cls]
+           indexes = np.unique(idxs, return_index=True)[1]
+           unsort = [idxs[index] for index in sorted(indexes)]
+    
+           sample=[g_type[j] for j in idxs];
+           return sample
+
+        
+        #classes = g_type[:num_cls]
+        classes = Hammersley(num_cls, g_type)
 
         print(classes)
         #randomly pick classes 
